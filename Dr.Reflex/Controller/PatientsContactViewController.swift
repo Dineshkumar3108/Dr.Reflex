@@ -42,6 +42,10 @@ class PatientsContactViewController: UIViewController,UITableViewDelegate,UITabl
     }
     
     @IBAction func logOutBtnClicked(_ sender: UIButton) {
+        UserDefaults.standard.set("", forKey: "myUserName")
+        UserDefaults.standard.set(false, forKey: "logIn")
+        UserDefaults.standard.set("", forKey: "Type")
+        UserDefaults.standard.set("", forKey: "myUserEmail")
         self.navigationController?.popToRootViewController(animated: true)
     }
     @IBOutlet weak var PatientContactTableView: UITableView!
@@ -53,12 +57,6 @@ class PatientsContactViewController: UIViewController,UITableViewDelegate,UITabl
                navigationItem.hidesBackButton = true
         getChatContactList()
     }
-    
-    //    func prepare(for segue: UIStoryboardSegue, sender: String) {
-    //        if let vc = segue.destination as? ChatViewController {
-    //            vc.toEmail = sender
-    //        }
-    //    }
     
     func getChatContactList() {
         db.collection(Constants.FStore.collectionName)

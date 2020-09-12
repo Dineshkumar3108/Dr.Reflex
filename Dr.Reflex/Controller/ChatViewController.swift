@@ -41,7 +41,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.myMesgLbl?.text = message.body
                 cell.containerMyMsgView.layer.cornerRadius = 18.0
                 cell.containerMyMsgView.layer.masksToBounds = true
-               
+                
             } else {
                 cell.toMsgLbl?.text = message.body
                 cell.containerToMsgView.layer.cornerRadius = 18.0
@@ -122,7 +122,7 @@ extension ChatViewController {
                                 if let sender = document.data()["sender"] as? String, let to = document.data()["ToName"] as? String ,let message = document.data()["body"] as? String {
                                     
                                     if sender == self.toEmail || sender == UserDefaults.standard.string(forKey: "myUserEmail") {
-                                        if sender == self.toEmail || to == self.toEmail {
+                                        if (sender == self.toEmail &&   to == UserDefaults.standard.string(forKey: "myUserEmail")) ||  to == self.toEmail {
                                             self.messages.append(Message(sender: sender , body: message))
                                             DispatchQueue.main.async {
                                                 self.tableView.reloadData()
@@ -132,47 +132,36 @@ extension ChatViewController {
                                         }
                                     }
                                 }
-                                //                                sender == self.toEmail || sender == UserDefaults.standard.string(forKey: "myUserEmail") {
-                                //                                self.messages.append(Message(sender: sender , body: message))
-                                //                                 DispatchQueue.main.async {
-                                //                                                                      self.tableView.reloadData()
-                                //                                                                      let indexPath = IndexPath(row: self.messages.count-1 , section : 0)
-                                //                                                                      self.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
-                                //                                                                  }
-                                
-                                
-                                
                             }
                         }
                     }
         }
     }
-
-
-
-
-// Mark: - send Messages
-func sendMessages() {
-    if messageTextfield.text != "" {
-        
-        if let messageBody = messageTextfield.text , let messageSender = Auth.auth().currentUser?.email, let currentUser = UserDefaults.standard.string(forKey: "myUserName") {
-            db.collection(Constants.FStore.collectionName).addDocument(data: [Constants.FStore.senderField : messageSender , Constants.FStore.bodyField : messageBody, Constants.FStore.dateField : Date().timeIntervalSince1970, "senderName" : currentUser, "ToName": toEmail
-                ])
-            { (error) in
-                if let e = error {
-                    print("Error has occured \(e)")
-                }
-                else {
-                    self.messages.append(Message(sender: messageSender, body: messageBody))
-                    self.tableView.reloadData()
-                    self.messageTextfield.text = ""
-                    print("Running successfully")
+    
+    
+    
+    
+    // Mark: - send Messages
+    func sendMessages() {
+        if messageTextfield.text != "" {
+            
+            if let messageBody = messageTextfield.text , let messageSender = Auth.auth().currentUser?.email, let currentUser = UserDefaults.standard.string(forKey: "myUserName") {
+                db.collection(Constants.FStore.collectionName).addDocument(data: [Constants.FStore.senderField : messageSender , Constants.FStore.bodyField : messageBody, Constants.FStore.dateField : Date().timeIntervalSince1970, "senderName" : currentUser, "ToName": toEmail
+                    ])
+                { (error) in
+                    if let e = error {
+                        print("Error has occured \(e)")
+                    }
+                    else {
+                        self.messages.append(Message(sender: messageSender, body: messageBody))
+                        self.tableView.reloadData()
+                        self.messageTextfield.text = ""
+                        print("Running successfully")
+                    }
                 }
             }
+            
         }
         
     }
-    
-}
-
 }
