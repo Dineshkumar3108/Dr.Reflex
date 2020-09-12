@@ -19,7 +19,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        signInClicked.layer.cornerRadius = 15.0
         emailTextfield.delegate = self
         passwordTextfield.delegate = self 
         

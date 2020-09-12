@@ -36,7 +36,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate {
         emailTxt.delegate = self
         passwordTxt.delegate = self
         nameTxt.delegate = self
-        signUpButtonClicked.layer.cornerRadius = 18.0
+        
     }
     
     @IBAction func maleCheck(_ sender: UIButton) {

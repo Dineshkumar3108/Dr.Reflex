@@ -27,7 +27,6 @@ class DoctorRegisterViewController: UIViewController , UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        proceedBtn.layer.cornerRadius = 18.0
         nameTextfield.delegate = self
         phoneNoTextfield.delegate = self
         cityNameTextfield.delegate = self

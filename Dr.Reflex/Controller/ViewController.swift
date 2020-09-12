@@ -30,9 +30,9 @@ class ViewController: UIViewController {
                 self.navigationController?.pushViewController(mainTabBarController, animated: false)
             }
         } else {
-            registerButton.layer.cornerRadius = 28.0
+            
             registerButton.layer.masksToBounds = true
-            logInButton.layer.cornerRadius = 28.0
+            
             
         }
     }

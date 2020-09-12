@@ -58,7 +58,7 @@ class PatientsContactViewController: UIViewController,UITableViewDelegate,UITabl
         getChatContactList()
     }
     
-    func getChatContactList() {
+     func getChatContactList() {
         db.collection(Constants.FStore.collectionName)
             .order(by: Constants.FStore.dateField)
             .getDocuments()
